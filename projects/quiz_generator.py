@@ -78,6 +78,7 @@ def gen_files():
 
 def gen_answers():
     states = list(capitals.keys())
+    alternatives = {}
     for answer_num in range(len(capitals)):
         correct_answer = capitals[states[answer_num]]
         wrong_answers = list(capitals.values())
@@ -85,7 +86,8 @@ def gen_answers():
         wrong_answers = random.sample(wrong_answers, 3)
         wrong_answers.append(correct_answer)
         random.shuffle(wrong_answers)
-        print(wrong_answers)
+        alternatives[states[answer_num]] = wrong_answers
+    return alternatives
 
 '''def gen_questions():
     for question_num in range(len(capitals)):
