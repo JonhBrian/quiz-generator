@@ -64,7 +64,7 @@ def gen_files():
         for quiz_num in range(quiz_quantity):
             quiz_object = open("quiz %s.txt" % (quiz_num + 1), "w") #Creation of quiz file.
             quiz_object.write("#%s\nName:\n\nDate:\n\nPeriod:\n\n" % (quiz_num + 1)) #Enumerates the quiz file and creats a header.
-            quiz_object.write(" " * 20 + "State Capitals Quiz\n\n") #Quiz title
+            quiz_object.write(" " * 40 + "StateS Capitals Quiz\n\n") #Quiz title
             quiz_object.close()
     if not os.path.exists("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers"): #Creation of answers files.
         os.makedirs("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers") #Creation of answer folder.
@@ -72,29 +72,38 @@ def gen_files():
         for quiz_num in range(quiz_quantity):
             answer_object = open("answer quiz %s.txt" % (quiz_num + 1), "w") #Creation of answers file.
             answer_object.write("#%s\n\n" % (quiz_num + 1)) #Enumerates the answer file.
-            answer_object.write(" " * 20 + "Answers For The Quiz\n\n") #Answer title
+            answer_object.write(" " * 40 + "Answers For The Quiz\n\n") #Answer title
             answer_object.close()
     os.chdir(cwd)
 
-def gen_answers():
-    states = list(capitals.keys())
-    alternatives = {}
+def gen_answers(states_answers): #Generates 4 alternatives for each state which 3 are wrong and only 1 is right
+    all_alternatives = {}
     for answer_num in range(len(capitals)):
-        correct_answer = capitals[states[answer_num]]
+        correct_answer = capitals[states_answers[answer_num]]
         wrong_answers = list(capitals.values())
         wrong_answers.remove(correct_answer)
         wrong_answers = random.sample(wrong_answers, 3)
         wrong_answers.append(correct_answer)
         random.shuffle(wrong_answers)
-        alternatives[states[answer_num]] = wrong_answers
-    return alternatives
+        all_alternatives[states_answers[answer_num]] = wrong_answers
+    return all_alternatives
 
-'''def gen_questions():
-    for question_num in range(len(capitals)):
-        question_quiz = open("quiz %s.txt" % (question_num + 1), "w")
-        question_quiz.append("%s) What is the capital of %s" % (question_num + 1, states[question_num]))
-        #Here comes the alternatives
-        question_quiz.append()  #The argument here should be the alternatives'''
+def gen_questions(states_questions):
+    for quiz_num in range(quiz_quantity):
+        random.shuffle(states_questions)
+        question_quiz = open("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes\\quiz %s.txt"
+                                % (quiz_num + 1), "a")
+        for question_num in range(len(capitals)):
+            question_quiz.write("%s. What is the capital of %s\n\n"
+                                % (question_num + 1, states_questions[question_num]))
+            alternatives = gen_answers(states_questions)
+            question_quiz.write("a) " + alternatives[states_questions[question_num]][0] +
+                              "\nb) " + alternatives[states_questions[question_num]][1] +
+                              "\nc) " + alternatives[states_questions[question_num]][2] +
+                              "\nd) " + alternatives[states_questions[question_num]][3] + "\n\n")
+        question_quiz.close()
+
+states = list(capitals.keys())
 
 gen_files()
-gen_answers()
+gen_questions(states)
