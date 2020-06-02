@@ -55,42 +55,37 @@ capitals = {"Alabama": "Montgomery",
             "Wyoming": "Cheyenne"
 }
 
-cwd = os.getcwd()
-
 #Creation of quizzes files, answers files and their respective folders to store everything.
 def gen_files():
-    if not os.path.exists("C:\\Users\\Iranb\\Desktop\\Python\\projects\\quizzes"): #Creation of quizzes files.
-        os.makedirs("C:\\Users\\Iranb\\Desktop\\Python\\projects\\quizzes") #Creation of quizzes folder.
-        os.chdir("C:\\Users\\Iranb\\Desktop\\Python\\projects\\quizzes")
+    cwd = os.getcwd()
+    if not os.path.exists("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes"): #Creation of quizzes files.
+        os.makedirs("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes") #Creation of quiz folder.
+        os.chdir("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes") #Change to created quiz folder
         for quiz_num in range(quiz_quantity):
             quiz_object = open("quiz %s.txt" % (quiz_num + 1), "w") #Creation of quiz file.
             quiz_object.write("#%s\nName:\n\nDate:\n\nPeriod:\n\n" % (quiz_num + 1)) #Enumerates the quiz file and creats a header.
             quiz_object.write(" " * 20 + "State Capitals Quiz\n\n") #Quiz title
             quiz_object.close()
-
-    if not os.path.exists("C:\\Users\\Iranb\\Desktop\\Python\\projects\\quizzes answers"): #Creation of answers files.
-        os.makedirs("C:\\Users\\Iranb\\Desktop\\Python\\projects\\quizzes answers") #Creation of answers folder.
-        os.chdir("C:\\Users\\Iranb\\Desktop\\Python\\projects\\quizzes answers")
+    if not os.path.exists("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers"): #Creation of answers files.
+        os.makedirs("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers") #Creation of answer folder.
+        os.chdir("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers") #Change to created answer folder
         for quiz_num in range(quiz_quantity):
             answer_object = open("answer quiz %s.txt" % (quiz_num + 1), "w") #Creation of answers file.
-            answer_object.write("#%s" % (quiz_num + 1)) #Enumerates the answer file.
+            answer_object.write("#%s\n\n" % (quiz_num + 1)) #Enumerates the answer file.
             answer_object.write(" " * 20 + "Answers For The Quiz\n\n") #Answer title
             answer_object.close()
-
     os.chdir(cwd)
 
-states = list(capitals.keys())
-
 def gen_answers():
-    answers = {}
+    states = list(capitals.keys())
     for answer_num in range(len(capitals)):
         correct_answer = capitals[states[answer_num]]
-        wrong_answers = list(capitals.values()).remove(correct_answer)
-        alternatives = random.sample(wrong_answers, 3).append(correct_answer)
-        answers[states[answer_num]] = random.shuffle(alternatives)
-    print(answers)
-
-gen_answers()
+        wrong_answers = list(capitals.values())
+        wrong_answers.remove(correct_answer)
+        wrong_answers = random.sample(wrong_answers, 3)
+        wrong_answers.append(correct_answer)
+        random.shuffle(wrong_answers)
+        print(wrong_answers)
 
 '''def gen_questions():
     for question_num in range(len(capitals)):
@@ -99,4 +94,5 @@ gen_answers()
         #Here comes the alternatives
         question_quiz.append()  #The argument here should be the alternatives'''
 
-#gen_files()
+gen_files()
+gen_answers()
