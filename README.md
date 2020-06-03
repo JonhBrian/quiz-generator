@@ -5,7 +5,7 @@ This program can generate how many quizzes you want about US state capitals (it 
 Students aren't suppose to cheat but they can do it sometimes.
 That's why this program randomize the order of questions so that each quiz is unique, making it impossible for anyone
 to crib answers from anyone else.
-Of course, doing this by hand would be a lengthy and boring affair. Fortunately, this Python is available.
+Of course, doing this by hand would be a lengthy and boring affair. Fortunately, this Python script is available.
 
 Here is what the program does:
 * Creates different quizzes (how many quizzes you want);
