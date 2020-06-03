@@ -13,4 +13,6 @@ Here is what the program does:
 * Provides the correct answer and three random wrong answers for each;
 question, also in random order;
 * Provides the answers in a separate folder;
-* All answers files are numbered just as the quizzes files (they match each other).
+* All answers files are numbered just as the quizzes files (they match each other);
+* A folder named "quiz generator" is created in the home screen (Desktop),
+that's where the quizzes and answers files can be found to be accessed.
