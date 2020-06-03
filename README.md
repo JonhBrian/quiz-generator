@@ -1,6 +1,6 @@
 # Welcome to my very first program with Python
 
-# Quiz Genetator
+# Quiz Generator
 This program can generate how many quizzes you want about US state capitals (it can be adapted to any country).
 Students aren't suppose to cheat but they can do it sometimes.
 That's why this program randomize the order of questions so that each quiz is unique, making it impossible for anyone
