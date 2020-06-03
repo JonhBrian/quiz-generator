@@ -1,6 +1,6 @@
 import random, os
 
-quiz_quantity = 35
+quiz_quantity = int(input("\nType how many quizzes you want to be generated: "))
 
 # Dictionary with US states as keys and their capitals as values.
 capitals = {"Alabama": "Montgomery",
@@ -58,17 +58,17 @@ capitals = {"Alabama": "Montgomery",
 #Creation of quizzes files, answers files and their respective folders to store everything.
 def gen_files():
     cwd = os.getcwd()
-    if not os.path.exists("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes"): #Creation of quizzes files.
-        os.makedirs("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes") #Creation of quiz folder.
-        os.chdir("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes") #Change to created quiz folder.
+    if not os.path.exists(os.path.join(os.path.expanduser("~"),"Desktop", "quiz generator", "quizzes")): #Creation of quizzes files.
+        os.makedirs(os.path.join(os.path.expanduser("~"),"Desktop", "quiz generator", "quizzes")) #Creation of quiz folder.
+        os.chdir(os.path.join(os.path.expanduser("~"),"Desktop", "quiz generator", "quizzes")) #Change to created quiz folder.
         for quiz_num in range(quiz_quantity):
             quiz_object = open("quiz %s.txt" % (quiz_num + 1), "w") #Creation of quiz file.
             quiz_object.write("#%s\nName:\n\nDate:\n\nPeriod:\n\n" % (quiz_num + 1)) #Enumerates the quiz file and creats a header.
             quiz_object.write(" " * 40 + "States Capitals Quiz\n\n") #Quiz title.
             quiz_object.close()
-    if not os.path.exists("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers"): #Creation of answers files.
-        os.makedirs("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers") #Creation of answer folder.
-        os.chdir("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers") #Change to created answer folder.
+    if not os.path.exists(os.path.join(os.path.expanduser("~"),"Desktop", "quiz generator", "quizzes answers")): #Creation of answers files.
+        os.makedirs(os.path.join(os.path.expanduser("~"),"Desktop", "quiz generator", "quizzes answers")) #Creation of answer folder.
+        os.chdir(os.path.join(os.path.expanduser("~"),"Desktop", "quiz generator", "quizzes answers")) #Change to created answer folder.
         for quiz_num in range(quiz_quantity):
             answer_object = open("answer quiz %s.txt" % (quiz_num + 1), "w") #Creation of answers file.
             answer_object.write("#%s\n\n" % (quiz_num + 1)) #Enumerates the answer file.
@@ -94,10 +94,12 @@ def gen_answers(states_answers):
 def gen_questions(states_questions):
     for quiz_num in range(quiz_quantity):
         random.shuffle(states_questions)
-        question_quiz = open("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes\\quiz %s.txt"
-                                % (quiz_num + 1), "a")
-        answer_quiz = open("C:\\Users\\Iranb\\Desktop\\Python\\quiz generator\\quizzes answers\\answer quiz %s.txt"
-                            % (quiz_num + 1), "a")
+        question_quiz = open(os.path.join(os.path.expanduser("~"), "Desktop",
+                            "quiz generator", "quizzes",
+                            "quiz " + str(quiz_num + 1) + ".txt"), "a")
+        answer_quiz = open(os.path.join(os.path.expanduser("~"), "Desktop",
+                            "quiz generator", "quizzes answers",
+                            "answer quiz " + str(quiz_num + 1) + ".txt"), "a")
         #Here is where all the questions are created, shuffled and written in the quiz files.
         for question_num in range(len(capitals)):
             question_quiz.write("%s. What is the capital of %s\n\n"
@@ -123,3 +125,4 @@ states = list(capitals.keys())
 
 gen_files()
 gen_questions(states)
+print("The quizzes and answers folders were created on Desktop.\nGo check that out.")
